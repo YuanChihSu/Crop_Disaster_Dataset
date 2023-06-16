@@ -58,7 +58,7 @@ for station in twStationList:
             for date in dateList:
                 url="http://e-service.cwb.gov.tw/HistoryDataQuery/MonthDataController.do?command=viewMain&station="+station+"&stname=&datepicker="+date+"&altitude="+altitude+"m"
 
-                if os.path.isfile("./test/"+station+'/'+year+'/'+date+".csv")==False:
+                if os.path.isfile("./weather/"+station+'/'+year+'/'+date+".csv")==False:
                     try:
                         print(station+':'+date)
                         crawler(url,station,year,date)
