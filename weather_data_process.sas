@@ -1,5 +1,5 @@
-libname station "D:\¥ÃÄò¹A·~³Ğ·sµo®i¤¤¤ß\110¦~\´Á¥½®ü³ø\®ğ¶H¸ê®Æ";
-libname weather "D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\for_upload";
+libname station "D:\æ°¸çºŒè¾²æ¥­å‰µæ–°ç™¼å±•ä¸­å¿ƒ\110å¹´\æœŸæœ«æµ·å ±\æ°£è±¡è³‡æ–™";
+libname weather "D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\for_upload";
 
 /*import agriculture station weather data CSV files*/
 %macro import_ag();
@@ -15,7 +15,7 @@ run;
 %put &code;
 
 proc import
-datafile="D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\¹A·~¯¸\&code..csv"
+datafile="D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\è¾²æ¥­ç«™\&code..csv"
 out=data
 replace
 dbms=CSV;
@@ -90,7 +90,7 @@ run;
 %do y=2003 %to 2021;
 %do m1=1 %to 9;
 proc import
-datafile="D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\CWB-Observation-Crawler-master\CWB-Observation-Crawler-master\data\&code.\&y.\&y.-0&m1..csv"
+datafile="D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\CWB-Observation-Crawler-master\CWB-Observation-Crawler-master\data\&code.\&y.\&y.-0&m1..csv"
 out=S1
 replace
 dbms=CSV;
@@ -124,7 +124,7 @@ data weather.nag_climate;set weather.nag_climate S1;run;
 %do y=2003 %to 2021;
 %do m2=10 %to 12;
 proc import
-datafile="D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\CWB-Observation-Crawler-master\CWB-Observation-Crawler-master\data\&code.\&y.\&y.-&m2..csv"
+datafile="D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\CWB-Observation-Crawler-master\CWB-Observation-Crawler-master\data\&code.\&y.\&y.-&m2..csv"
 out=S2
 replace
 dbms=CSV;
@@ -190,24 +190,24 @@ run;
 /*combine agricultural and non-agricultural station weather data*/
 data climate_all;length county $10; informat county $10.; format county $10. date1 mmddyy10.;
 set  tp_ag_climate tp_nag_climate;
-if substr(county,1,4) in ('¥x¥_','·s¥_','»O¥_','°ò¶©') then county='Taipei';
-else if substr(county,1,4)='®ç¶é' then county='Taoyuan';
-else if substr(county,1,4)='·s¦Ë' then county='Hsinchu';
-else if substr(county,1,4)='­]®ß' then county='Miaoli';
-else if substr(county,1,4) in ('¥x¤¤','»O¤¤') then county='Taichung';
-else if substr(county,1,4)='¹ü¤Æ' then county='Changhua';
-else if substr(county,1,4)='«n§ë' then county='Nantou';
-else if substr(county,1,4)='¶³ªL' then county='Yunlin';
-else if substr(county,1,4)='¹Å¸q' then county='Chiayi';
-else if substr(county,1,4) in ('¥x«n','»O«n') then county='Tainan';
-else if substr(county,1,4)='°ª¶¯' then county='Kaohsiung';
-else if substr(county,1,4)='«ÌªF' then county='Pingtung';
-else if substr(county,1,4)='©yÄõ' then county='Yilan';
-else if substr(county,1,4)='ªá½¬' then county='Hualien';
-else if substr(county,1,4) in ('¥xªF','»OªF') then county='Taitung';
-else if substr(county,1,4)='¼ê´ò' then county='Penghu';
-else if substr(county,1,4)='ª÷ªù' then county='Kinmen';
-else if substr(county,1,4)='³s¦¿' then county='Lienchiang';
+if substr(county,1,4) in ('å°åŒ—','æ–°åŒ—','è‡ºåŒ—','åŸºéš†') then county='Taipei';
+else if substr(county,1,4)='æ¡ƒåœ’' then county='Taoyuan';
+else if substr(county,1,4)='æ–°ç«¹' then county='Hsinchu';
+else if substr(county,1,4)='è‹—æ —' then county='Miaoli';
+else if substr(county,1,4) in ('å°ä¸­','è‡ºä¸­') then county='Taichung';
+else if substr(county,1,4)='å½°åŒ–' then county='Changhua';
+else if substr(county,1,4)='å—æŠ•' then county='Nantou';
+else if substr(county,1,4)='é›²æ—' then county='Yunlin';
+else if substr(county,1,4)='å˜‰ç¾©' then county='Chiayi';
+else if substr(county,1,4) in ('å°å—','è‡ºå—') then county='Tainan';
+else if substr(county,1,4)='é«˜é›„' then county='Kaohsiung';
+else if substr(county,1,4)='å±æ±' then county='Pingtung';
+else if substr(county,1,4)='å®œè˜­' then county='Yilan';
+else if substr(county,1,4)='èŠ±è“®' then county='Hualien';
+else if substr(county,1,4) in ('å°æ±','è‡ºæ±') then county='Taitung';
+else if substr(county,1,4)='æ¾æ¹–' then county='Penghu';
+else if substr(county,1,4)='é‡‘é–€' then county='Kinmen';
+else if substr(county,1,4)='é€£æ±Ÿ' then county='Lienchiang';
 
 if COUNTY in ('Penghu','Kinmen','Lienchiang') then REGION='Outer_island';
 else if COUNTY in ('Taichung','Changhua','Nantou','Yunlin') then REGION='Central';
@@ -366,15 +366,34 @@ run;
 data weather.climate_c2;set climate_clean;
 drop month year;run;
 
+data weather_c1;
+retain COUNTY REGION SCode Altitude Longitude Latitude Date meanT maxT minT RH
+meanWS meanWD PREC RAD SSH EVAP;
+set weather.climate_c1;
+rename County=COUNTY;
+drop rh1 rad1;
+run;
+
+data weather_c2;
+retain COUNTY REGION SCode Altitude Longitude Latitude Date meanT maxT minT RH
+meanWS meanWD PREC RAD SSH EVAP;
+set weather.climate_c2;
+rename County=COUNTY
+            rh=RH
+            date=Date;
+run;
+
 /*export sas dataset to CSV file*/
-proc export data=weather.climate_c2
-     outfile="D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\for_upload\weather_cleaned.csv"
+proc export data=weather_c2
+     outfile="D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\for_upload\weather_cleaned.csv"
      dbms=csv 
      replace;
 run;
 
-proc export data=weather.climate_c1
-     outfile="D:\§ë½Z\¤ô½_©W³Î¸ê®Æ\data\®ğ¶H¸ê®Æ\for_upload\weather_raw.csv"
+proc export data=weather_c1
+     outfile="D:\æŠ•ç¨¿\æ°´ç¨»åªå‰²è³‡æ–™\data\æ°£è±¡è³‡æ–™\for_upload\weather_raw.csv"
      dbms=csv 
      replace;
 run;
+
+
